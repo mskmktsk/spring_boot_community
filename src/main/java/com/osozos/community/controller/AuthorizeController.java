@@ -4,8 +4,10 @@ import com.google.gson.Gson;
 import com.osozos.community.common.Result;
 import com.osozos.community.dto.GithubUserDTO;
 import com.osozos.community.provider.GithubProvider;
+import com.osozos.community.service.Impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +18,17 @@ public class AuthorizeController {
 
     @Autowired
     private GithubProvider githubProvider;
+
+    @Autowired
+    private UserServiceImpl userService;
+
     private Gson gson = new Gson();
+
+    @GetMapping("/github/{id}")
+    public Object get(@PathVariable("id") Integer id) {
+        System.out.println(id);
+        return userService.getGithubUser(id);
+    }
 
     @GetMapping("/github/callback")
     public String callback(@RequestParam(name = "code") String code,
