@@ -26,7 +26,6 @@ public class AuthorizeController {
 
     @GetMapping("/github/{id}")
     public Object get(@PathVariable("id") Integer id) {
-        System.out.println(id);
         return userService.getGithubUser(id);
     }
 
