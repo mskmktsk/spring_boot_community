@@ -65,7 +65,7 @@ public class JWTUtil {
      * @param token 唯一身份令牌
      * @return 用户名
      */
-    public static String verifyToken(String token) {
+    public static Boolean verifyToken(String username, String token) {
         try {
             JwtConsumer consumer = new JwtConsumerBuilder()
                     .setRequireExpirationTime()
@@ -77,11 +77,33 @@ public class JWTUtil {
                     .build();
             JwtClaims claims = consumer.processToClaims(token);
             if (claims != null) {
-                String username = (String) claims.getClaimValue("username");
-                return username;
+                return username == (String) claims.getClaimValue("username");
             }
         } catch (JoseException e) {
             e.printStackTrace();
+        } catch (InvalidJwtException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * jws 校验 token
+     * @param token 唯一身份令牌
+     * @return 用户名
+     */
+    public static String getUsername(String token) {
+        try {
+            JwtConsumer consumer = new JwtConsumerBuilder()
+                    .setSkipAllValidators()
+                    .setDisableRequireSignature()
+                    .setSkipSignatureVerification()
+                    .build();
+            JwtClaims claims = consumer.processToClaims(token);
+            if (claims != null) {
+                String username = (String) claims.getClaimValue("username");
+                return username;
+            }
         } catch (InvalidJwtException e) {
             e.printStackTrace();
         }

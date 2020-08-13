@@ -23,6 +23,7 @@
         <mybatis.spring-boot.version>2.1.3</mybatis.spring-boot.version>
         <shiro.version>1.5.3</shiro.version>
         <jose4j.version>0.7.2</jose4j.version>
+        <jbcrypt.version>0.4</jbcrypt.version>
     </properties>
 
     <dependencies>
@@ -81,6 +82,13 @@
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring</artifactId>
             <version>${shiro.version}</version>
+        </dependency>
+
+        <!-- JBcrypt -->
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>${jbcrypt.version}</version>
         </dependency>
 
         <!-- JWT jose4j -->
